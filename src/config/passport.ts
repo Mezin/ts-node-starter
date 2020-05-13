@@ -4,17 +4,6 @@ import { User } from '../models';
 
 const LocalStrategy = passportLocal.Strategy;
 
-passport.serializeUser<any, any>((user, done) => {
-  done(undefined, user.id);
-});
-
-passport.deserializeUser((id, done) => {
-  console.log('deserializeUser');
-  User.findById(id, (err, user) => {
-    done(err, user);
-  });
-});
-
 passport.use(
   new LocalStrategy(
     {
