@@ -87,7 +87,7 @@
             2,
             {
                 "allowKeywords": true,
-                "allowPattern": "^([a-z]+(_[a-z]+)+)|[A-Z]+|[A-Z]{1}[a-z]+$" 
+                "allowPattern": "^([a-z]+(_[a-z]+)+)|[A-Z]+|[A-Z]{1}[a-z]+$"
             }
         ],
         "eqeqeq": 2,
@@ -175,7 +175,6 @@
         "callback-return": 2,
         "no-mixed-requires": 2,
         "no-path-concat": 2,
-        "no-sync": 2,
         "handle-callback-err": 1,
         "no-new-require": 2,
         // Stylistic
@@ -209,7 +208,6 @@
             "never"
         ],
         "eol-last": 2,
-        "func-names": 1,
         "func-style": [
             2,
             "declaration",
@@ -219,7 +217,7 @@
         ],
         "indent": [
             2,
-            4,
+            2,
             {
                 "SwitchCase": 1
             }
