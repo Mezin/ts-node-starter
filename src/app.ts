@@ -1,30 +1,36 @@
 import express, { Router } from 'express';
-import { Request, Response } from 'express';
 import bodyParser from 'body-parser';
+import passport from './config/passport';
+import cors from 'cors';
+import lusca from 'lusca';
+import connect from './db';
+import routes from './routes';
+
+import {
+  MONGODB_URI
+} from './config/secrets';
+
 
 const app = express();
 const router = Router();
-const port = process.env.PORT || 3000;
+
+const corsConfig = {
+  origin: '*',
+  preflightContinue: false,
+  optionsSuccessStatus: 204
+};
+
+connect(MONGODB_URI);
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+app.use(cors(corsConfig));
+app.use(passport.initialize());
+app.use(lusca.xframe('SAMEORIGIN'));
+app.use(lusca.xssProtection(true));
 app.use(router);
 
-interface ResponseError extends Error {
-	status?: number;
-	statusCode?: number;
-}
+// entry route
+app.use('/', routes);
 
-function errorHandler(err: ResponseError, req: Request, res: Response) {
-    console.error(err.message);
-    if (!err.statusCode) {
-        err.statusCode = 500;
-    }
-    res.status(err.statusCode).send(err.message);
-}
-
-app.use(errorHandler);
-
-app.listen(port, (): void => {
-    console.log(`App listening on port ${port}!`);
-});
+export default app;
